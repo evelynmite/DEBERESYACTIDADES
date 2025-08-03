@@ -1,0 +1,63 @@
+<h2>TERCER DEBER</h2>
+
+<h1>Conversión de Sistemas Numéricos: Binario, Octal, Hexadecimal y Decimal</h1>
+
+<h2>🌐 Sistemas Numéricos</h2>
+<ul>
+    <li><b>Sistema Binario (Base 2):</b> Usa solo los dígitos 0 y 1. Es el lenguaje básico de las computadoras.</li>
+    <li><b>Sistema Octal (Base 8):</b> Usa los dígitos del 0 al 7.</li>
+    <li><b>Sistema Decimal (Base 10):</b> Es el sistema numérico habitual, usa del 0 al 9.</li>
+    <li><b>Sistema Hexadecimal (Base 16):</b> Usa los dígitos del 0 al 9 y las letras A–F (A=10, B=11, ..., F=15).</li>
+</ul>
+
+<img src="tabla.png" alt="Sistema numerico" width="400"/>
+
+<h2>🧠 Teoría de Conversión</h2>
+
+<h3>1. Binario a Decimal</h3>
+<p>Para convertir un número binario a decimal, multiplica cada dígito por 2 elevado a la posición que ocupa, empezando desde la derecha (posición 0), y suma los resultados.</p>
+<p><b>Ejemplo con binario <code>1010101011</code> (de la tabla):</b><br>
+Cálculo:<br>
+1×2⁹ + 0×2⁸ + 1×2⁷ + 0×2⁶ + 1×2⁵ + 0×2⁴ + 1×2³ + 0×2² + 1×2¹ + 1×2⁰ = 683</p>
+
+<img src="decima.jpg" alt="" width="400"/>
+
+<h3>2. Binario a Octal</h3>
+<p>Agrupa los bits en grupos de 3 desde la derecha (agrega ceros a la izquierda si es necesario). Cada grupo se convierte a decimal, que es un dígito octal.</p>
+<p><b>Ejemplo con binario <code>1010101011</code>:</b><br>
+Agrupado: <code>001 010 101 011</code> → Octal: <code>1 2 5 3</code></p>
+
+<img src="octal.png" alt="" width="400"/>
+
+<h3>3. Binario a Hexadecimal</h3>
+<p>Agrupa los bits en grupos de 4 desde la derecha (agrega ceros a la izquierda si es necesario). Cada grupo se convierte a su equivalente hexadecimal.</p>
+<p><b>Ejemplo con binario <code>1010101011</code>:</b><br>
+Agrupado: <code>0010 1010 1011</code> → Hexadecimal: <code>2 A B</code></p>
+
+<img src="hexag.jpg" alt="" width="400"/>
+
+<h3>4. Decimal a Binario / Octal / Hexadecimal</h3>
+<p>Divide el número decimal entre la base destino (2, 8 o 16) sucesivamente y anota los residuos. El resultado se lee de abajo hacia arriba.</p>
+<p><b>Ejemplo con decimal <code>47</code> (de la tabla, corresponde a binario <code>00101111</code>):</b></p>
+<table style="width:auto;">
+<tr><th>División</th><th>Cociente</th><th>Residuo</th></tr>
+<tr><td>47 ÷ 2</td><td>23</td><td>1</td></tr>
+<tr><td>23 ÷ 2</td><td>11</td><td>1</td></tr>
+<tr><td>11 ÷ 2</td><td>5</td><td>1</td></tr>
+<tr><td>5 ÷ 2</td><td>2</td><td>1</td></tr>
+<tr><td>2 ÷ 2</td><td>1</td><td>0</td></tr>
+<tr><td>1 ÷ 2</td><td>0</td><td>1</td></tr>
+</table>
+<p>Resultado: <code>101111</code> (igual que <code>00101111</code> sin ceros a la izquierda)</p>
+
+<h3>5. Octal o Hexadecimal a Decimal</h3>
+<p>Multiplica cada dígito por la base elevada a la posición correspondiente y suma.</p>
+<p><b>Ejemplo con hexadecimal <code>2AB</code> (de la tabla, corresponde a decimal 683):<br>
+2×16² + 10×16¹ + 11×16⁰ = 512 + 160 + 11 = 683</p>
+
+<h2>📊 Tabla de Conversion deber realizado</h2>
+<table>
+<img src="Ejercicio.png" alt="Ejemplo de conversiones" width="400"/>
+
+<h2>✅ Conclusión</h2>
+<p>Comprender los sistemas numéricos y sus conversiones es esencial para áreas como la informática, electrónica y matemáticas. Esta teoría y tabla facilitan el entendimiento y la conversión entre binario, octal, decimal y hexadecimal de forma clara y sencilla.</p>
