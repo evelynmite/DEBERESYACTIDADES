@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Informe - Pantalla LCD con Arduino</title>
+</head>
+<body>
+    <h1>INFORME</h1>
+    <p><strong>Proyecto:</strong> Visualización Dinámica en Pantalla LCD con Arduino</p>
+    <p><strong>Nombre:</strong> Evelyn Marisol Mite Posligua</p>
+    <p><strong>Fecha:</strong> 05 de agosto de 2025</p>
+    
+    <h2>1. Objetivo General</h2>
+    <p>Implementar un sistema con Arduino para mostrar un mensaje en una pantalla LCD de forma dinámica, utilizando funciones de desplazamiento de texto.</p>
+
+    <h2>2. Materiales Utilizados</h2>
+    <ul>
+        <li>Arduino UNO</li>
+        <li>Pantalla LCD 16x2</li>
+        <li>Potenciómetro (opcional para contraste)</li>
+        <li>Cables de conexión</li>
+        <li>Protoboard</li>
+    </ul>
+
+    <h2>3. Simulación de actividad</h2>
+<br>
+<iframe width="725" height="453" src="https://www.tinkercad.com/embed/jyV6PTJCRQo?editbtn=1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+
+    <h2>4. Explicación del Funcionamiento</h2>
+    <p>
+        Se utiliza la librería <code>LiquidCrystal</code> para controlar la pantalla LCD. En el <code>setup()</code> se inicializa la pantalla y se imprime un mensaje largo que excede el límite de 16 caracteres por línea. 
+        Gracias a la función <code>scrollDisplayLeft()</code>, el mensaje se desplaza dinámicamente hacia la izquierda, generando un efecto de texto en movimiento.
+    </p>
+
+    <h2>5. Resultados Obtenidos</h2>
+    <p>
+        Al cargar el código en el Arduino, la pantalla muestra el mensaje <strong>"hola mi nombre es Evelyn"</strong> desplazándose de derecha a izquierda, lo cual permite visualizar mensajes largos de forma clara y atractiva.
+    </p>
+
+    <h2>6. Conclusiones</h2>
+    <ul>
+        <li>Se logró mostrar un mensaje dinámico en la pantalla LCD utilizando desplazamiento automático.</li>
+        <li>El efecto visual mejora la experiencia del usuario y la presentación de la información.</li>
+        <li>Este proyecto sirve como base para aplicaciones más complejas con menús, alertas o interacción con el usuario.</li>
+    </ul>
+
+    <h2>7. Recomendaciones</h2>
+    <ul>
+        <li>Incorporar un potenciómetro para mejorar el contraste visual del LCD.</li>
+        <li>Agregar botones para pausar o reiniciar el desplazamiento del texto.</li>
+        <li>Explorar otras funciones de la librería como <code>scrollDisplayRight()</code> o <code>autoscroll()</code>.</li>
+    </ul>
+</body>
+</html>
