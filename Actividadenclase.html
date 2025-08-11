@@ -1,0 +1,45 @@
+
+<h1>Proyecto Arduino en Visual Studio Code: LCD 16×2 con Texto Centrado y Emojis</h1>
+
+<h2>📄 Introducción</h2>
+<p>
+El presente informe describe el desarrollo de un proyecto con Arduino, implementado en Visual Studio Code, cuyo objetivo es mostrar mensajes centrados en una pantalla LCD 16×2 con íconos personalizados en forma de emojis.  
+La idea principal es aplicar los conceptos de programación de microcontroladores, manejo de periféricos de salida y uso de librerías específicas como <code>LiquidCrystal.h</code>.  
+Este trabajo busca demostrar el uso eficiente del controlador HD44780, empleando la memoria CGRAM para almacenar símbolos personalizados y mostrando cómo integrarlos de forma estética junto al texto en pantalla.
+</p>
+
+<h2>🛠 Desarrollo</h2>
+
+<h3>1. Configuración del entorno</h3>
+<ul>
+    <li><b>IDE:</b> Visual Studio Code con la extensión Arduino.</li>
+    <li><b>Librería utilizada:</b> <code>LiquidCrystal.h</code>.</li>
+    <li><b>Placa:</b> Arduino Uno.</li>
+    <li><b>Display:</b> LCD 16×2 con controlador HD44780 en modo 4 bits.</li>
+</ul>
+
+<h3>2. Fundamentos técnicos</h3>
+<p>
+El LCD 16×2 utiliza un controlador HD44780 que permite definir hasta 8 caracteres personalizados en la memoria CGRAM.  
+En este proyecto, se define un solo emoji estático que se coloca en las posiciones de esquina de cada línea (columna 0 y 15), reservando las 14 columnas centrales para el texto.  
+Para centrar el texto, se calcula la longitud y se ajusta la posición inicial con base en el ancho disponible.
+</p>
+<h3>4. Visual del ejercicio realizado</h3>
+<p>
+    <iframe width="725" height="453" src="https://www.tinkercad.com/embed/jigrgn5vxqO?editbtn=1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+    </p>
+
+<h3>3. Conexiones recomendadas</h3>
+<ul>
+    <li>RS → D7, E → D6, D4 → D5, D5 → D4, D6 → D3, D7 → D2</li>
+    <li>VSS → GND, VDD → 5V, RW → GND</li>
+    <li>V0 → cursor de potenciómetro 10 kΩ (extremos a 5V y GND)</li>
+    <li>LED+ → 5V con resistencia 100–220 Ω, LED− → GND</li>
+</ul>
+
+<h2>✅ Conclusión</h2>
+<p>
+El proyecto permitió reforzar los conocimientos en programación de microcontroladores y uso de periféricos de salida, aplicando técnicas de centrado de texto y diseño de caracteres personalizados en un LCD 16×2.  
+El uso de Visual Studio Code como entorno de desarrollo facilita la organización del proyecto y su mantenimiento, mientras que la librería <code>LiquidCrystal.h</code> simplifica la comunicación con el LCD.  
+Esta práctica puede servir como base para proyectos más complejos que incluyan animaciones, menús interactivos o visualización de datos en tiempo real.
+</p>
