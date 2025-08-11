@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Informe - Compuertas Lógicas</title>
+</head>
+<body>
+
+
+<h1>Análisis y Simulación de Compuertas Lógicas Básicas (AND, OR y NOT)</h1>
+
+<h2>🎯 Objetivo General</h2>
+<p>Analizar el comportamiento de las compuertas lógicas básicas mediante su construcción y simulación.</p>
+
+<h2>🎯 Objetivos Específicos</h2>
+<ul>
+    <li>Identificar las diferentes compuertas lógicas y sus símbolos.</li>
+    <li>Construir circuitos lógicos básicos utilizando compuertas.</li>
+    <li>Verificar las tablas de verdad mediante simulación y práctica.</li>
+</ul>
+
+<h2>📚 Marco Teórico</h2>
+<p>Las compuertas lógicas son la base del diseño digital. A continuación, se presentan las compuertas estudiadas en esta práctica:</p>
+
+<h3>Compuerta AND</h3>
+<p>Solo entrega salida alta (1) cuando <b>todas</b> las entradas son altas.</p>
+
+<table border="1" cellpadding="5">
+    <tr><th>A</th><th>B</th><th>Salida</th></tr>
+    <tr><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>0</td><td>1</td><td>0</td></tr>
+    <tr><td>1</td><td>0</td><td>0</td></tr>
+    <tr><td>1</td><td>1</td><td>1</td></tr>
+</table>
+<br>
+<img src="compuerta-logica-and.jpg" alt="Compuerta AND">
+<br>
+<h3>Compuerta OR</h3>
+<p>Entrega salida alta si <b>al menos una</b> de las entradas es alta.</p>
+
+<table border="1" cellpadding="5">
+    <tr><th>A</th><th>B</th><th>Salida</th></tr>
+    <tr><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>0</td><td>1</td><td>1</td></tr>
+    <tr><td>1</td><td>0</td><td>1</td></tr>
+    <tr><td>1</td><td>1</td><td>1</td></tr>
+</table>
+<br>
+<img src="compuertas-logicas-OR.png"
+
+<br>
+
+
+<h3>Compuerta NOT</h3>
+<p>Invierte el valor de la entrada: si es 1 pasa a 0 y viceversa.</p>
+<br>
+<table border="1" cellpadding="5">
+    <tr><th>A</th><th>Salida</th></tr>
+    <tr><td>0</td><td>1</td></tr>
+    <tr><td>1</td><td>0</td></tr>
+</table>
+<br>
+<img src="compuerta-logica-not.jpg" alt="">
+<h2>🛠️ Materiales y Equipo</h2>
+<ul>
+    <li>Fuente de alimentación</li>
+    <li>Protoboard</li>
+    <li>Cables de conexión</li>
+    <li>LEDs</li>
+    <li>Resistencias</li>
+    <li>Chips lógicos (74LS08, 74LS32, 74LS04, etc.)</li>
+    <li>Multímetro (opcional)</li>
+</ul>
+
+<h2>📋 Procedimiento</h2>
+<ol>
+    <li>Conectar la compuerta lógica en el protoboard según el circuito.</li>
+    <li>Alimentar adecuadamente el chip.</li>
+    <li>Probar las diferentes combinaciones de entradas y observar la salida.</li>
+    <li>Registrar resultados.</li>
+    <li>(Opcional) Simular los mismos circuitos en software.</li>
+</ol>
+
+<h2>📊 Tabla de Resultados</h2>
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Entrada A</th>
+        <th>Entrada B</th>
+        <th>Salida esperada</th>
+        <th>Salida real</th>
+        <th>Observaciones</th>
+    </tr>
+    <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>Funciona OK</td></tr>
+    <tr><td>0</td><td>1</td><td>1</td><td>1</td><td>Funciona OK</td></tr>
+    <tr><td>1</td><td>0</td><td>1</td><td>1</td><td>Funciona OK</td></tr>
+    <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>Funciona OK</td></tr>
+</table>
+
+<h2>🔍 Análisis y Discusión</h2>
+<ul>
+    <li>Los resultados reales coincidieron con los esperados.</li>
+    <li>No se presentaron errores significativos en las pruebas.</li>
+    <li>Si no se conecta correctamente la alimentación del chip, no habrá salida válida.</li>
+    <li>Una salida incorrecta puede deberse a un mal contacto, cableado erróneo o daño en el chip.</li>
+</ul>
+
+<h2>✅ Conclusiones</h2>
+<ul>
+    <li>Las compuertas lógicas básicas pueden implementarse fácilmente con componentes TTL.</li>
+    <li>El comportamiento real coincide con las tablas de verdad estudiadas.</li>
+    <li>La simulación ayuda a verificar el funcionamiento antes de la construcción física.</li>
+</ul>
+
+<h2>📎 Anexos</h2>
+
+<iframe width="725" height="453" src="https://www.tinkercad.com/embed/32X3UlJHVj8?editbtn=1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no">Anexos</iframe></Iframe>
+</body>
+</html>
