@@ -1,84 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Informe – Arduino LCD con Scroll y Texto Centrado</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: Arial, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", sans-serif;
+           margin: 40px; line-height: 1.6; background:#f9f9fb; color:#222; }
+    h1, h2 { color:#174f86; margin-bottom: .4rem; }
+    .meta { margin-top: .2rem; margin-bottom: 1.2rem; color:#555; }
+    .seccion { margin: 28px 0; }
+    pre { background:#eef1f5; padding:16px; border-radius:8px; overflow:auto; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+    .card { background:#fff; border:1px solid #e6e9ef; border-radius:12px; padding:22px; }
+  </style>
+</head>
+<body>
 
+  <h1>Visualización en LCD: Nombre centrado </h1>
+  <p class="meta"><strong>Autora:</strong> Evelyn Mite
+  <div class="seccion card">
+    <h2>1. Introducción</h2>
+    <p>Este proyecto implementa una interfaz simple y efectiva en una pantalla LCD 16x2 controlada por Arduino: la primera línea desplaza de forma continua el mensaje “Hola mi nombre es:”, mientras que la segunda línea muestra el nombre “Evelyn Mite” centrado de manera estática. El enfoque combina presentación clara de texto con un efecto visual dinámico que aprovecha las limitaciones y posibilidades del display.</p>
+    <p>La solución se construyó desde la práctica: inicializar correctamente la pantalla, centrar contenido calculando el desplazamiento necesario, y crear un “scroll” suave mediante un búfer con espacios de relleno. Este trabajo refuerza conceptos de manejo de strings, temporización con <code>delay()</code> y control de cursores en pantallas LCD compatibles con el controlador HD44780.</p>
+  </div>
 
-<h1>Proyecto Arduino: Desplazamiento de Texto en LCD 16×2 y Nombre Centrado</h1>
+  <div class="seccion card">
+    <h2>2. Objetivo específico</h2>
+    <p>Lograr que una frase superior, más larga que 16 caracteres, se desplace suavemente a través de la primera línea del LCD, evitando cortes bruscos al inicio o al final, y garantizando la legibilidad durante todo el recorrido de la ventana visible.</p>
+    <p>Al mismo tiempo, centrar el nombre en la segunda línea de forma que permanezca fijo, calculando su posición a partir de su longitud y el ancho del display. El objetivo incluía usar un código claro y mínimo, fácil de entender y de modificar (por ejemplo, para cambiar el texto, la velocidad del scroll o el nombre).</p>
+  </div>
 
-<h2>📄 Introducción</h2>
-<p>
-En este proyecto se desarrolló un programa en Arduino para controlar una pantalla LCD 16×2 (controlador HD44780) utilizando la librería <code>LiquidCrystal.h</code>. 
-El objetivo fue mostrar un mensaje largo desplazándose horizontalmente en la primera fila y un nombre centrado en la segunda fila. 
-Esta práctica permitió comprender cómo trabajar con pantallas de caracteres, manejar el posicionamiento del texto y aplicar técnicas de desplazamiento para superar la limitación de 16 columnas visibles.
-</p>
-
-<h2>🧠 Desarrollo</h2>
-
-<h3>1. Configuración del hardware</h3>
-<ul>
-  <li>Se utilizó una pantalla LCD 16×2 con controlador HD44780 en modo de 4 bits.</li>
-  <li>Las conexiones se realizaron según el constructor <code>LiquidCrystal lcd(7, 6, 5, 4, 3, 2)</code>, donde los pines RS, E, D4, D5, D6 y D7 se conectaron a los pines digitales 7, 6, 5, 4, 3 y 2 del Arduino respectivamente.</li>
-  <li>El pin V0 se conectó a un potenciómetro para regular el contraste y los pines LED+ y LED− se conectaron con resistencia a 5V y GND para la retroiluminación.</li>
-</ul>
-
-<h3>2. Lógica de programación</h3>
-<ol>
-  <li><b>Inicialización del LCD:</b> En la función <code>setup()</code>, se ejecutó <code>lcd.begin(16,2)</code> para configurar la pantalla con 16 columnas y 2 filas.</li>
-  <li><b>Centrado del nombre:</b> Se calculó la posición inicial con <code>(16 - strlen(nombre)) / 2</code> para que el texto “Evelyn Mite” aparezca perfectamente alineado en la segunda fila.</li>
-  <li><b>Desplazamiento del mensaje largo:</b> El mensaje “Hola mi nombre es:” supera el límite de 16 caracteres, por lo que se preparó una cadena <i>padded</i> con espacios adicionales a la izquierda y derecha. Esto permite que el texto entre y salga de la pantalla suavemente.</li>
-  <li><b>Animación del scroll:</b> En la función <code>loop()</code> se recorre una ventana de 16 caracteres dentro de <code>padded</code> usando <code>substring()</code> e imprimiendo en la primera fila. Entre cada paso se utilizó <code>delay(SCROLL_DELAY)</code> para controlar la velocidad de desplazamiento.</li>
-</ol>
-
-<h3>3. Código implementado</h3>
-<pre><code>#include &lt;LiquidCrystal.h&gt;
-
-LiquidCrystal lcd(7, 6, 5, 4, 3, 2);
-
-const char* linea_larga = "Hola mi nombre es:";  // >16 caracteres
-const char* nombre      = "Evelyn Mite";
-const int SCROLL_DELAY = 250; // milisegundos entre pasos
-
-void setup() {
-  lcd.begin(16, 2);
-
-  // Centrar el nombre en la segunda línea
-  int lenNombre = strlen(nombre);
-  int pos2 = (16 - lenNombre) / 2;
-  lcd.setCursor(pos2, 1);
-  lcd.print(nombre);
-}
-
-void loop() {
-  // Prepara un buffer con espacios para que el scroll sea suave (padding)
-  static String padded = String("                ") + linea_larga + "                ";
-  // Recorre ventana de 16 caracteres
-  for (int i = 0; i <= (int)padded.length() - 16; i++) {
-    lcd.setCursor(0, 0);
-    lcd.print(padded.substring(i, i + 16));
-    delay(SCROLL_DELAY);
-  }
-}
-</code></pre>
-
-<h3>4. Cómo se hizo</h3>
-<p>
-El desarrollo comenzó configurando correctamente la librería <code>LiquidCrystal.h</code> para la comunicación en modo paralelo con el LCD. 
-Luego se escribió la lógica para centrar el nombre en la segunda línea, lo cual implicó calcular la posición inicial del cursor. 
-Para el desplazamiento del mensaje largo se utilizó la técnica de “ventana deslizante”, en la que un bloque de 16 caracteres recorre el mensaje completo, mostrando progresivamente su contenido.
-Finalmente, se añadió un retardo fijo con <code>delay()</code> para que el movimiento sea legible.
-</p>
-
-<h3>5. Lo que se aprendió</h3>
-<ul>
-  <li>A utilizar la librería <code>LiquidCrystal.h</code> para manejar pantallas LCD 16×2.</li>
-  <li>Cómo centrar texto calculando la posición inicial del cursor en base a la longitud de la cadena.</li>
-  <li>Técnicas para desplazar mensajes largos en pantallas con espacio limitado.</li>
-  <li>La importancia de usar <i>padding</i> para lograr transiciones suaves en el desplazamiento.</li>
-  <li>Consideraciones sobre <code>delay()</code> y la posibilidad de optimizar con <code>millis()</code> para evitar bloqueos.</li>
-</ul>
-<h1>ACTIVIDAD SIMULADA</h1>
+  <div class="seccion card">
+    <h2>3. Desarrollo</h2>
+    <p>Primero se configuró la pantalla con <code>lcd.begin(16, 2)</code> y se centró el nombre en la segunda línea. Para ello se obtuvo la longitud del nombre y se calculó la columna inicial con <code>(16 - lenNombre) / 2</code>, ubicándolo mediante <code>lcd.setCursor(pos2, 1)</code> y <code>lcd.print(nombre)</code>. Esto asegura que, sin importar el nombre, el texto quede visualmente equilibrado.</p>
+    <p>Para el scroll de la primera línea se preparó un string “acolchado” (padded) con espacios a la izquierda y a la derecha del mensaje. Ese padding permite que la frase entre y salga de la ventana de 16 columnas sin saltos. Luego, en un bucle, se imprime la subcadena visible <code>padded.substring(i, i+16)</code> moviendo la “ventana” carácter a carácter, con una pausa de <code>SCROLL_DELAY</code> milisegundos entre pasos para dar la sensación de desplazamiento suave.</p>
+    <h1>ACTIVIDAD SIMULADA</h1>
 <iframe width="725" height="453" src="https://www.tinkercad.com/embed/jyV6PTJCRQo?editbtn=1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
 
-<h2>✅ Conclusión</h2>
-<p>
-El proyecto cumplió con el objetivo de mostrar un mensaje largo desplazándose en un LCD 16×2 y un nombre centrado en la segunda fila. 
-Se comprendió el manejo básico de pantallas LCD con Arduino, la lógica de posicionamiento y técnicas de animación de texto. 
-Esta experiencia resulta útil para futuros desarrollos donde se requiera mostrar información dinámica de manera clara en pantallas de caracteres.
-</p>
+
+    
+
+
+  </div>
+
+  <div class="seccion card">
+    <h2>4. Conclusión</h2>
+    <p>El resultado cumple el objetivo: el mensaje largo se desplaza de manera fluida en la primera línea gracias al uso de un búfer con espacios y una ventana móvil, mientras que el nombre permanece centrado y estable en la segunda línea. La solución es sencilla, confiable y fácil de adaptar a otros textos o velocidades.</p>
+    <p>Además de ser una interfaz agradable, esta técnica es práctica para mostrar avisos, encabezados o etiquetas que exceden el ancho de la pantalla. El patrón se puede reutilizar en proyectos de menú, bienvenida o rotulación, manteniendo un código compacto y legible.</p>
+  </div>
+
+  <div class="seccion card">
+    <h2>5. Aprendizaje obtenido</h2>
+    <p>Se aprendió</p>
+    <p>(1) centrar texto en LCD calculando posiciones según el largo del string</p>
+     <p>(2) crear desplazamientos suaves con strings acolchados</p>
+     <p>(3) manipular cursores y ventanas visibles en displays de 16x2</p>
+     <p>(4) controlar la temporización del efecto con un retardo constante.</p> 
+     <p>También se reforzó el criterio para escribir código claro y parametrizable.</p>
+    <p>Como mejoras futuras, se identificó la posibilidad de: ajustar la velocidad con un potenciómetro, desplazar en ambos sentidos, pausar al inicio/fin del mensaje, o migrar a una temporización sin bloqueo utilizando <code>millis()</code> en lugar de <code>delay()</code>. Estas variantes permitirían interfaces más responsivas y escalables.</p>
+  </div>
+
+</body>
+</html>
+
+
