@@ -1,79 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Informe: Sistema de Alerta con Sensor Ultrasónico (Arduino)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --primary:#0f766e; --ink:#0b1320; --muted:#5b6475; --bg:#ffffff; --border:#e5e7eb;
+    }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;line-height:1.6}
+    .container{max-width:920px;margin:40px auto;padding:0 20px 60px}
+    header{border-bottom:2px solid var(--border);padding-bottom:16px;margin-bottom:28px}
+    h1{font-size:28px;margin:0 0 6px;color:var(--primary)}
+    .meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;color:var(--muted);font-size:14px}
+    .badge{display:inline-block;background:#ecfeff;color:#075985;border:1px solid #a5f3fc;border-radius:999px;padding:2px 10px;font-size:12px;margin-top:8px}
+    h2{font-size:20px;margin:28px 0 8px}
+    p{margin:8px 0}
+    ul{margin:10px 0 10px 20px}
+    code,kbd,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,Monaco,monospace;font-size:0.95em}
+    pre{background:#0b1020;color:#e6edf3;border-radius:10px;padding:16px;overflow:auto;border:1px solid #10182833}
+    .card{border:1px solid var(--border);border-radius:12px;padding:16px;background:#fff}
+    footer{margin-top:40px;color:var(--muted);font-size:13px;text-align:center}
+    @media print{
+      .container{margin:0;max-width:100%;padding:0}
+      header{border:none}
+      .badge{border:none;background:none;color:inherit}
+      a[href]:after{content:""}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Sistema de alerta con sensor ultrasónico (Arduino)</h1>
+      <p></p>
+      <p><strong>Autor:</strong> Evelyn Mite</p>
+      
+    </header>
 
+    <section>
+      <h2>Introducción</h2>
+      <p>
+        Este proyecto implementa un sistema de medición y alerta utilizando un sensor ultrasónico HC-SR04,
+        un LED y un buzzer piezoeléctrico controlados por Arduino. El programa mide la distancia a un
+        objeto y actúa según una regla simple: si la distancia es mayor a <strong>100&nbsp;cm</strong>, se
+        enciende un LED; si es menor o igual a <strong>100&nbsp;cm</strong>, se activa una alarma
+        (buzzer). Con este trabajo se refuerzan conceptos de sensado, procesamiento y actuación en
+        sistemas embebidos.
+      </p>
+    </section>
 
-      <h1>Sistema de Detección de Distancia con LED y Alarma</h1>
+    <section>
+      <h2>Objetivo específico</h2>
+      <p>
+        Desarrollar un circuito y un programa en Arduino que midan distancia con el HC-SR04 y
+        <em>conmuten</em> entre LED (seguridad &gt;100&nbsp;cm) y buzzer (alerta ≤100&nbsp;cm),
+        consolidando el uso de temporización, conversión tiempo-distancia y lógica condicional.
+      </p>
+    </section>
 
-      <div class="grid">
-        <div>
-          <h2>1. Introducción</h2>
-          <p>
-            Este proyecto utiliza un sensor ultrasónico <strong>HC-SR04</strong> para medir la distancia a un objeto. 
-            La lógica es simple: si la distancia es <em>mayor a 100&nbsp;cm</em> se enciende un <strong>LED</strong>; 
-            si es <em>menor o igual a 100&nbsp;cm</em> se activa una <strong>alarma</strong> (buzzer piezoeléctrico).
-            Se incluye filtrado básico para descartar lecturas inválidas del sensor.
-          </p>
+    <section>
+      <h2>Desarrollo</h2>
 
-          <h2>2. Materiales</h2>
-          <table>
-            <thead><tr><th>Cantidad</th><th>Componente</th><th>Notas</th></tr></thead>
-            <tbody>
-              <tr><td>1</td><td>Arduino UNO (o compatible)</td><td>Microcontrolador</td></tr>
-              <tr><td>1</td><td>HC-SR04</td><td>Trigger en pin 7, Echo en pin 6</td></tr>
-              <tr><td>1</td><td>LED + resistencia 220&nbsp;Ω</td><td>LED en pin 2</td></tr>
-              <tr><td>1</td><td>Buzzer piezoeléctrico</td><td>Conectado al pin 3</td></tr>
-              <tr><td>—</td><td>Protoboard y cables</td><td>Interconexión</td></tr>
-            </tbody>
-          </table>
-
-          <h2>3. Conexiones</h2>
-          <ul class="list">
-            <li>HC-SR04: VCC → 5V, GND → GND, TRIG → D7, ECHO → D6</li>
-            <li>LED: Ánodo → D2 a través de 220&nbsp;Ω, cátodo → GND</li>
-            <li>Piezo: (+) → D3, (−) → GND</li>
-          </ul>
-
-          <h2>4. Lógica de funcionamiento</h2>
-          <div class="callout">
-            <strong>Regla:</strong> Si <strong>distancia &gt; 100&nbsp;cm</strong> ⇒ LED <span class="ok">encendido</span> y alarma apagada. 
-            Si <strong>distancia ≤ 100&nbsp;cm</strong> ⇒ LED apagado y alarma <span class="warn">encendida</span>.
-          </div>
-        </div>
-
-        <div>
-          <h2>5. Código (Arduino)</h2>
-          <div class="code">
-<pre><code>// LED si &gt;100cm, alarma si ≤100cm (con filtro de lecturas)
-long cm = 0;
-
-</code></pre>
-          </div>
-
-          <h2>6. Pruebas y resultados</h2>
-          <ul class="list">
-            <li>LED permaneció encendido con objetos a &gt; 100&nbsp;cm.</li>
-            <li>Alarma se activó de forma consistente a ≤ 100&nbsp;cm.</li>
-            <li>El filtrado evitó activaciones falsas por lecturas 0 o &gt; 400&nbsp;cm.</li>
-          </ul>
-
-          <iframe width="725" height="453" src="https://www.tinkercad.com/embed/2xqRi6DB3Yf?editbtn=1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
-
-          <h2>7. Conclusiones y mejoras</h2>
-          <ul class="list">
-            <li>Sistema simple y efectivo para alertas de proximidad.</li>
-            <li>Mejoras: promediar N lecturas, tono intermitente o variable, LCD para distancia.</li>
-          </ul>
-        </div>
+      <div class="card">
+        <h3 style="margin-top:0">1) Componentes</h3>
+        <ul>
+          <li>Arduino UNO (o compatible)</li>
+          <li>Sensor ultrasónico HC-SR04 (pines VCC, GND, TRIG, ECHO)</li>
+          <li>LED (con resistencia limitadora 220–330&nbsp;Ω)</li>
+          <li>Buzzer piezoeléctrico</li>
+          <li>Cables y protoboard</li>
+        </ul>
       </div>
 
-      <div class="footer">
-        <p class="print-note">Sugerencia: imprime este informe en tamaño A4. Puedes editar el nombre del autor arriba.</p>
+      <div class="card" style="margin-top:12px">
+        <h3 style="margin-top:0">2) Método de medición</h3>
+        <p>
+          El HC-SR04 emite un pulso ultrasónico al activar <code>TRIG</code> durante 10&nbsp;µs.
+          El pin <code>ECHO</code> queda en nivel alto mientras el pulso viaja y regresa; su duración
+          (en µs) se convierte a distancia usando la velocidad del sonido
+          (~<code>0.0343&nbsp;cm/µs</code>) y dividiendo entre 2 (ida y vuelta).
+        </p>
       </div>
-    </div>
+
+      <div class="card" style="margin-top:12px">
+        <h3 style="margin-top:0">3) Lógica de control</h3>
+        <ul>
+          <li>Si <strong>distancia &gt; 100&nbsp;cm</strong> → LED encendido, buzzer apagado.</li>
+          <li>Si <strong>distancia ≤ 100&nbsp;cm</strong> → LED apagado, buzzer encendido.</li>
+          <li>Manejo de “fuera de rango” cuando no hay eco (<code>timeout</code>).</li>
+        </ul>
+      </div>
+      <iframe width="725" height="453" src="https://www.tinkercad.com/embed/fbVTj4VaG72?editbtn=1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+
+      
+
+    <section>
+      <h2>Conclusión</h2>
+      <p>
+        El sistema demostró cómo integrar un sensor de proximidad con actuadores simples para tomar
+        decisiones en tiempo real. La conversión de tiempos en distancia y la implementación de
+        condiciones lógicas permiten construir alertas fiables aplicables a seguridad, robótica y
+        automatización básica.
+      </p>
+    </section>
+
+    <section>
+      <h2>¿Qué aprendí con este deber?</h2>
+      <ul>
+        <li>Configurar y leer el HC-SR04 usando <code>pulseIn</code> con <em>timeout</em>.</li>
+        <li>Convertir duración de eco a distancia con la velocidad del sonido.</li>
+        <li>Controlar salidas digitales (LED y buzzer) desde lógica condicional.</li>
+        <li>Estructurar código en funciones para mejorar legibilidad y depuración.</li>
+        <li>Buenas prácticas básicas: inicialización segura y manejo de valores fuera de rango.</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>© Evelyn Mite.</p>
+    </footer>
   </div>
-
-<script>
-  // Fecha automática (local)
-  const fmt = new Intl.DateTimeFormat('es-ES',{year:'numeric',month:'long',day:'2-digit'});
-  document.getElementById('fecha').textContent = fmt.format(new Date());
-</script>
 </body>
 </html>
