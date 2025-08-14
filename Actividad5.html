@@ -1,0 +1,102 @@
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Crear Crear un sistema de inicio de sesión:
+
+Si la contraseña es correcta, mostrar en el LCD “Correcto” y encender un LED.
+
+Si es incorrecto, encender una alarma y mostrar “Incorrecto” en el LCD.</h1>
+      
+
+    <section id="introduccion">
+      <h2>1. Introducción</h2>
+      <p>Este informe documenta el diseño, implementación y validación de un sistema de control de acceso basado en Arduino, que utiliza un teclado matricial 4x4 para el ingreso de una clave, una pantalla LCD 16×2 para la interfaz de usuario y un zumbador (buzzer) junto con dos LEDs como mecanismos de retroalimentación. El objetivo es permitir la autenticación mediante una contraseña de cuatro dígitos y activar señales acústicas y visuales según el resultado: <span class="ok">verde en caso de acierto</span> y <span class="warn">rojo con alarma en caso de error</span>.</p>
+    </section>
+
+    <section id="objetivos">
+      <h2>2. Objetivos</h2>
+      <ul>
+        <li>Diseñar una interfaz de ingreso de clave con teclado 4×4 y LCD 16×2.</li>
+        <li>Implementar la verificación de contraseña con control de intentos fallidos.</li>
+        <li>Activar LED rojo y buzzer ante errores; LED verde en aciertos.</li>
+        <li>Incluir un modo de depuración que muestre dígitos ingresados durante pruebas.</li>
+        <li>Documentar el cableado, las decisiones de diseño y las pruebas realizadas.</li>
+      </ul>
+    </section>
+
+    <section id="materiales">
+      <h2>3. Materiales y Herramientas</h2>
+      <ul>
+        <li>Arduino UNO (o equivalente)</li>
+        <li>Teclado matricial 4×4</li>
+        <li>Pantalla LCD 16×2 en modo paralelo</li>
+        <li>Buzzer activo o pasivo (función <code>tone()</code>)</li>
+        <li>LEDs: Verde (acierto) y Rojo (error) + resistencias</li>
+        <li>Cables Dupont y protoboard</li>
+        <li>Librerías: <code>LiquidCrystal</code>, <code>Keypad</code></li>
+        <li>IDE de Arduino 2.x</li>
+      </ul>
+    </section>
+
+    <section id="metodologia">
+      <h2>4. Metodología de Desarrollo</h2>
+      <div class="card">
+        <p>El desarrollo siguió un enfoque incremental:</p>
+        <ol>
+          <li>Definición del mapeo de pines y de la matriz de teclas del keypad.</li>
+          <li>Configuración del LCD para visualización de mensajes y entrada.</li>
+          <li>Captura de teclas con la librería <code>Keypad</code> y almacenamiento en buffer.</li>
+          <li>Comparación con la clave correcta usando <code>strcmp</code> con terminador <code>\0</code>.</li>
+          <li>Señalización con LED verde en acierto y LED rojo + buzzer en error.</li>
+          <li>Conteo de intentos fallidos y alarma prolongada al tercer fallo.</li>
+          <li>Modo de depuración para mostrar dígitos reales durante pruebas.</li>
+        </ol>
+      </div>
+    </section>
+
+
+    <section id="logica">
+      <h2>5. Lógica/Diagrama de Flujo (Descripción)</h2>
+     
+        <li><strong>Si coincide:</strong> Mostrar “CLAVE CORRECTA”, encender LED verde, reiniciar contador de fallos.</li>
+        <li><strong>Si no coincide:</strong> Mostrar “CLAVE INCORRECTA”, encender LED rojo y sonar buzzer; incrementar contador.</li>
+        <li><strong>Si contador ≥ 3:</strong> Mostrar “ALARMA ACTIVADA”, mantener LED rojo, activar alarma prolongada y reiniciar contador.</li>
+      </ul>
+    </section>
+
+    <section id="codigo">
+      <h2>6. Ejecución del ejercicio</h2>
+
+      <iframe width="725" height="453" src="https://www.tinkercad.com/embed/gKLBzJBPgtL?editbtn=1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+     
+</code></pre>
+    </section>
+
+    <section id="pruebas">
+      <h2>7. Pruebas y Resultados</h2>
+      <ul>
+        <li>En modo depuración (<code>SHOW_DIGITS=true</code>), el sistema mostró correctamente los dígitos ingresados.</li>
+        <li>La LCD actualizó mensajes en tiempo real según el resultado (correcto/incorrecto/alarma).</li>
+        <li>LED verde se encendió únicamente en claves correctas; LED rojo y buzzer ante cada error.</li>
+        <li>Al tercer error consecutivo, la alarma prolongada funcionó y el contador se reinició.</li>
+      </ul>
+    </section>
+
+    <section id="discusion">
+      <h2>8. Discusión</h2>
+      <p>La librería <code>Keypad</code> simplifica la captura de teclas y evita gestionar rebotes manualmente. El LCD en modo paralelo permite feedback inmediato al usuario. Como mejora, se puede migrar a un módulo I2C para liberar pines, o evitar los pines 0 y 1 si se requiere comunicación serie. El modo de depuración acelera la validación de hardware y mapeo del teclado.</p>
+    </section>
+
+    <section id="conclusión">
+      <h2>9. Conclusión</h2>
+      <p>El sistema cumple los objetivos de control de acceso básico, manejo de intentos fallidos y señalización visual/auditiva. El modo de depuración facilita pruebas y garantiza que el diseño esté alineado con el código fuente implementado.</p>
+  
+    </section>
+
+    <p class="footer">© 2025 • Evelyn Mite.</p>
+  </div>
+</body>
+</html>
