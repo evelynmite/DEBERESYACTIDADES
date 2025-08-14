@@ -1,106 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Arduino LCD Emojis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1, h2 {
+            color: #1a5276;
+        }
+        pre {
+            background-color: #eee;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .seccion {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
 
-  <div class="container">
-    <header>
-      <h1 class="title"> Arduino: LCD 16×2 con Emoji en Esquinas</h1>
-      
-        <span class="badge">Plataforma: Arduino</span>
-        <span class="badge">Autor: Evelyn Mite</span>
-        <span class="badge">Versión</span>
-      </div>
-    </header>
+    <h1>Proyecto Arduino: Visualización de Emojis en LCD</h1>
+    <p><strong>Autor:</strong> Evelyn Mite</p>
 
-    <main>
-      
-       
-      </section>
 
-      <section aria-labelledby="objetivo">
-        <h2 id="objetivo">1. Objetivo del proyecto</h2>
-        <p>
-          Implementar en un LCD 16×2 un <strong>mensaje fijo</strong> (“MI NOMBRE ES / EVELYN MITE”) y un
-          <strong>emoji personalizado</strong> (carita feliz) que se <strong>desplace por las cuatro esquinas</strong> de la pantalla
-          en secuencia. El ejercicio demuestra el uso de caracteres personalizados, direccionamiento de cursor y
-          animaciones simples con <em>LiquidCrystal</em>.
-        </p>
-      </section>
+    <div class="seccion">
+        <h2>1. Introducción</h2>
+        <p>Este proyecto consistió en la programación de un sistema visual en Arduino que permite mostrar cuatro emojis en forma de carita feliz ubicados en las esquinas de una pantalla LCD de 16x2, generando un efecto de parpadeo sincronizado. La idea principal fue crear una interfaz visual atractiva y dinámica que combine animación con texto fijo en el centro.</p>
+        <p>El trabajo se desarrolló aplicando conceptos de creación de caracteres personalizados en la librería <strong>LiquidCrystal</strong>, posicionamiento preciso en coordenadas de pantalla y control de animación mediante alternancia de estados. Todo el proceso permitió poner en práctica conocimientos tanto de electrónica como de programación en C++ para Arduino.</p>
+    </div>
 
-      <section aria-labelledby="materiales">
-        <h2 id="materiales">2. Materiales utilizados</h2>
-        <table>
-          <thead>
-            <tr><th>Componente</th><th>Descripción</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Arduino UNO o compatible</td><td>Microcontrolador para ejecutar el sketch.</td></tr>
-            <tr><td>LCD 16×2 (paralelo)</td><td>Display de 16 columnas por 2 filas, controlado con la librería LiquidCrystal.</td></tr>
-            <tr><td>Cables y protoboard</td><td>Interconexión segura y ordenada de los pines.</td></tr>
-            <tr><td>Potenciómetro/Resistencia de 10kΩ (opcional)</td><td>Ajuste del contraste del LCD.</td></tr>
-            <tr><td>Librería <code>LiquidCrystal</code></td><td>Manejo de pines, cursor y caracteres personalizados.</td></tr>
-          </tbody>
-        </table>
-      </section>
+    <div class="seccion">
+        <h2>2. Objetivo Específico</h2>
+        <p>El objetivo principal fue diseñar y programar un código que generara un carácter personalizado en forma de emoji, colocándolo en las cuatro esquinas de una pantalla LCD y aplicando un parpadeo simultáneo sin afectar el mensaje central.</p>
+        <p>Adicionalmente, se buscó reforzar las habilidades en la manipulación de pantallas LCD con Arduino, así como en la creación y almacenamiento de caracteres personalizados, optimizando la lógica para que el efecto visual fuera fluido y constante.</p>
+    </div>
 
-      <section aria-labelledby="funcionamiento">
-        <h2 id="funcionamiento">3. Funcionamiento general</h2>
-        <ol>
-          <li>Se define el <strong>carácter personalizado</strong> (carita feliz) mediante una matriz de 8 filas (5×8 puntos del LCD).</li>
-          <li>Se inicializa el LCD (16×2), se registra el carácter con <code>createChar()</code> y se escribe el <strong>texto fijo</strong>.</li>
-          <li>Se prepara un <strong>arreglo de coordenadas</strong> con las cuatro esquinas: (0,0), (15,0), (15,1), (0,1).</li>
-          <li>En cada ciclo: se <strong>borran</strong> las posiciones anteriores, se <strong>dibuja</strong> el emoji en la esquina actual y se <strong>avanza</strong> el índice.</li>
-          <li>Un retardo de ~400 ms determina la <strong>velocidad de la animación</strong>.</li>
-        </ol>
-        <div class="note">
-          <strong>Nota:</strong> Borrar antes de dibujar evita <em>ghosting</em> y superposición de caracteres, manteniendo la animación limpia.
-        </div>
-      </section>
-
-      <section aria-labelledby="logica">
-        <h2 id="logica">4. Lógica de programación</h2>
-        <div class="grid">
-          <div>
-            <p><strong>Carácter personalizado:</strong> 8 bytes definen cada fila; los bits encendidos forman la carita.</p>
-            <p><strong>Posicionamiento:</strong> el cursor se mueve con <code>setCursor(col, fila)</code> a cada esquina.</p>
-          </div>
-          <div>
-            <p><strong>Secuenciado:</strong> un índice recorre el arreglo de esquinas y se reinicia con el operador módulo.</p>
-            <p><strong>Limpieza:</strong> escribir un espacio en las esquinas borra el carácter previo antes de redibujar.</p>
-          </div>
-        </div>
-      </section>
-
-      <section aria-labelledby="aplicaciones">
-        <h2 id="aplicaciones">5. Aplicaciones prácticas</h2>
-        <ul>
-          <li>Mensajes de bienvenida o <em>splash screens</em> animados.</li>
-          <li>Indicadores visuales en menús de dispositivos.</li>
-          <li>Proyectos educativos para introducir LCD y CGRAM.</li>
-        </ul>
-      </section>
-      <section aria-labelledby="enlace">
-        <h2 id="enlace">Enlace al ejercicio</h2>
-        <br>
-        <iframe width="725" height="453" src="https://www.tinkercad.com/embed/jigrgn5vxqO?editbtn=1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
-          
-        </div>
-
-      <section aria-labelledby="conclusion">
-        <h2 id="conclusion">6. Conclusión</h2>
-        <p>
-          El proyecto integra caracteres personalizados, direccionamiento de cursor y control temporal para producir
-          una animación sencilla y efectiva en un LCD 16×2. La solución es clara, reproducible y sienta bases para
-          interfaces más ricas en proyectos embebidos.
-        </p>
+    <div class="seccion">
+        <h2>3. Desarrollo</h2>
+        <p>En la primera etapa, se configuró la librería <strong>LiquidCrystal</strong> para inicializar la pantalla LCD y definir la conexión con los pines del Arduino. Luego, se diseñó la matriz de 5x8 píxeles que dio forma al emoji, la cual fue registrada como carácter personalizado dentro de la memoria del LCD.</p>
+        <p>Posteriormente, se creó un arreglo con las coordenadas de las esquinas de la pantalla para colocar los emojis de manera precisa. La lógica de parpadeo se implementó mediante una variable booleana que alterna entre mostrar y borrar los caracteres en intervalos de tiempo definidos con la función <code>delay()</code>, logrando un parpadeo uniforme en las cuatro esquinas.</p>
         
-      </section>
-    </main>
+            <h2>Link de la actividad desarrollada</h2>
+            <iframe width="725" height="453" src="https://www.tinkercad.com/embed/jigrgn5vxqO?editbtn=1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
 
-    <footer>
-      © <span id="year"></span> Evelyn Mite
-    </footer>
-  </div>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+    </div>
+
+    <div class="seccion">
+        <h2>4. Conclusión</h2>
+        <p>El proyecto cumplió con el objetivo de mostrar y animar emojis en una pantalla LCD utilizando Arduino. Se consiguió un efecto visual atractivo manteniendo la estabilidad del texto central, lo que demuestra que es posible combinar información estática con elementos animados en un mismo display.</p>
+        <p>Además, se comprobó que el uso de caracteres personalizados en LCD es una herramienta versátil para mejorar la estética de proyectos electrónicos, abriendo la posibilidad de implementar íconos, indicadores o elementos decorativos en distintas aplicaciones.</p>
+    </div>
+
+    <div class="seccion">
+        <h2>5. Aprendizaje Obtenido</h2>
+        <p>A través de este trabajo se fortalecieron conocimientos sobre el manejo de pantallas LCD con Arduino, especialmente en la creación y control de caracteres personalizados. También se mejoró la comprensión del posicionamiento de elementos gráficos mediante coordenadas.</p>
+        <p>Se aprendió a optimizar la lógica de parpadeo para que sea fluida y a combinar animaciones simples con texto fijo, logrando un resultado visual más atractivo. Este conocimiento podrá aplicarse en futuros proyectos que requieran interfaces visuales básicas pero funcionales.</p>
+    </div>
+
 </body>
 </html>
