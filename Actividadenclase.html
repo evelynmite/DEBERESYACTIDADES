@@ -1,45 +1,106 @@
 
-<h1>Proyecto Arduino en Visual Studio Code: LCD 16×2 con Texto Centrado y Emojis</h1>
+  <div class="container">
+    <header>
+      <h1 class="title"> Arduino: LCD 16×2 con Emoji en Esquinas</h1>
+      
+        <span class="badge">Plataforma: Arduino</span>
+        <span class="badge">Autor: Evelyn Mite</span>
+        <span class="badge">Versión</span>
+      </div>
+    </header>
 
-<h2>📄 Introducción</h2>
-<p>
-El presente informe describe el desarrollo de un proyecto con Arduino, implementado en Visual Studio Code, cuyo objetivo es mostrar mensajes centrados en una pantalla LCD 16×2 con íconos personalizados en forma de emojis.  
-La idea principal es aplicar los conceptos de programación de microcontroladores, manejo de periféricos de salida y uso de librerías específicas como <code>LiquidCrystal.h</code>.  
-Este trabajo busca demostrar el uso eficiente del controlador HD44780, empleando la memoria CGRAM para almacenar símbolos personalizados y mostrando cómo integrarlos de forma estética junto al texto en pantalla.
-</p>
+    <main>
+      
+       
+      </section>
 
-<h2>🛠 Desarrollo</h2>
+      <section aria-labelledby="objetivo">
+        <h2 id="objetivo">1. Objetivo del proyecto</h2>
+        <p>
+          Implementar en un LCD 16×2 un <strong>mensaje fijo</strong> (“MI NOMBRE ES / EVELYN MITE”) y un
+          <strong>emoji personalizado</strong> (carita feliz) que se <strong>desplace por las cuatro esquinas</strong> de la pantalla
+          en secuencia. El ejercicio demuestra el uso de caracteres personalizados, direccionamiento de cursor y
+          animaciones simples con <em>LiquidCrystal</em>.
+        </p>
+      </section>
 
-<h3>1. Configuración del entorno</h3>
-<ul>
-    <li><b>IDE:</b> Visual Studio Code con la extensión Arduino.</li>
-    <li><b>Librería utilizada:</b> <code>LiquidCrystal.h</code>.</li>
-    <li><b>Placa:</b> Arduino Uno.</li>
-    <li><b>Display:</b> LCD 16×2 con controlador HD44780 en modo 4 bits.</li>
-</ul>
+      <section aria-labelledby="materiales">
+        <h2 id="materiales">2. Materiales utilizados</h2>
+        <table>
+          <thead>
+            <tr><th>Componente</th><th>Descripción</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Arduino UNO o compatible</td><td>Microcontrolador para ejecutar el sketch.</td></tr>
+            <tr><td>LCD 16×2 (paralelo)</td><td>Display de 16 columnas por 2 filas, controlado con la librería LiquidCrystal.</td></tr>
+            <tr><td>Cables y protoboard</td><td>Interconexión segura y ordenada de los pines.</td></tr>
+            <tr><td>Potenciómetro/Resistencia de 10kΩ (opcional)</td><td>Ajuste del contraste del LCD.</td></tr>
+            <tr><td>Librería <code>LiquidCrystal</code></td><td>Manejo de pines, cursor y caracteres personalizados.</td></tr>
+          </tbody>
+        </table>
+      </section>
 
-<h3>2. Fundamentos técnicos</h3>
-<p>
-El LCD 16×2 utiliza un controlador HD44780 que permite definir hasta 8 caracteres personalizados en la memoria CGRAM.  
-En este proyecto, se define un solo emoji estático que se coloca en las posiciones de esquina de cada línea (columna 0 y 15), reservando las 14 columnas centrales para el texto.  
-Para centrar el texto, se calcula la longitud y se ajusta la posición inicial con base en el ancho disponible.
-</p>
-<h3>4. Visual del ejercicio realizado</h3>
-<p>
-    <iframe width="725" height="453" src="https://www.tinkercad.com/embed/jigrgn5vxqO?editbtn=1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
-    </p>
+      <section aria-labelledby="funcionamiento">
+        <h2 id="funcionamiento">3. Funcionamiento general</h2>
+        <ol>
+          <li>Se define el <strong>carácter personalizado</strong> (carita feliz) mediante una matriz de 8 filas (5×8 puntos del LCD).</li>
+          <li>Se inicializa el LCD (16×2), se registra el carácter con <code>createChar()</code> y se escribe el <strong>texto fijo</strong>.</li>
+          <li>Se prepara un <strong>arreglo de coordenadas</strong> con las cuatro esquinas: (0,0), (15,0), (15,1), (0,1).</li>
+          <li>En cada ciclo: se <strong>borran</strong> las posiciones anteriores, se <strong>dibuja</strong> el emoji en la esquina actual y se <strong>avanza</strong> el índice.</li>
+          <li>Un retardo de ~400 ms determina la <strong>velocidad de la animación</strong>.</li>
+        </ol>
+        <div class="note">
+          <strong>Nota:</strong> Borrar antes de dibujar evita <em>ghosting</em> y superposición de caracteres, manteniendo la animación limpia.
+        </div>
+      </section>
 
-<h3>3. Conexiones recomendadas</h3>
-<ul>
-    <li>RS → D7, E → D6, D4 → D5, D5 → D4, D6 → D3, D7 → D2</li>
-    <li>VSS → GND, VDD → 5V, RW → GND</li>
-    <li>V0 → cursor de potenciómetro 10 kΩ (extremos a 5V y GND)</li>
-    <li>LED+ → 5V con resistencia 100–220 Ω, LED− → GND</li>
-</ul>
+      <section aria-labelledby="logica">
+        <h2 id="logica">4. Lógica de programación</h2>
+        <div class="grid">
+          <div>
+            <p><strong>Carácter personalizado:</strong> 8 bytes definen cada fila; los bits encendidos forman la carita.</p>
+            <p><strong>Posicionamiento:</strong> el cursor se mueve con <code>setCursor(col, fila)</code> a cada esquina.</p>
+          </div>
+          <div>
+            <p><strong>Secuenciado:</strong> un índice recorre el arreglo de esquinas y se reinicia con el operador módulo.</p>
+            <p><strong>Limpieza:</strong> escribir un espacio en las esquinas borra el carácter previo antes de redibujar.</p>
+          </div>
+        </div>
+      </section>
 
-<h2>✅ Conclusión</h2>
-<p>
-El proyecto permitió reforzar los conocimientos en programación de microcontroladores y uso de periféricos de salida, aplicando técnicas de centrado de texto y diseño de caracteres personalizados en un LCD 16×2.  
-El uso de Visual Studio Code como entorno de desarrollo facilita la organización del proyecto y su mantenimiento, mientras que la librería <code>LiquidCrystal.h</code> simplifica la comunicación con el LCD.  
-Esta práctica puede servir como base para proyectos más complejos que incluyan animaciones, menús interactivos o visualización de datos en tiempo real.
-</p>
+      <section aria-labelledby="aplicaciones">
+        <h2 id="aplicaciones">5. Aplicaciones prácticas</h2>
+        <ul>
+          <li>Mensajes de bienvenida o <em>splash screens</em> animados.</li>
+          <li>Indicadores visuales en menús de dispositivos.</li>
+          <li>Proyectos educativos para introducir LCD y CGRAM.</li>
+        </ul>
+      </section>
+      <section aria-labelledby="enlace">
+        <h2 id="enlace">Enlace al ejercicio</h2>
+        <br>
+        <iframe width="725" height="453" src="https://www.tinkercad.com/embed/jigrgn5vxqO?editbtn=1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+          
+        </div>
+
+      <section aria-labelledby="conclusion">
+        <h2 id="conclusion">6. Conclusión</h2>
+        <p>
+          El proyecto integra caracteres personalizados, direccionamiento de cursor y control temporal para producir
+          una animación sencilla y efectiva en un LCD 16×2. La solución es clara, reproducible y sienta bases para
+          interfaces más ricas en proyectos embebidos.
+        </p>
+        
+      </section>
+    </main>
+
+    <footer>
+      © <span id="year"></span> Evelyn Mite
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
