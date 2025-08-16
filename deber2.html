@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Informe: Voltaje en Serie y en Paralelo</title>
+  <meta name="description" content="Informe académico sobre el comportamiento del voltaje en circuitos en serie y en paralelo, con base en una práctica con pila de 1.5 V y resistencias." />
+  <style>
+    :root { --fg:#111; --muted:#555; --accent:#0d6efd; --bgmuted:#f7f7f8; }
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif; color: var(--fg); line-height: 1.65; margin: 0; background: #fff; }
+    main { max-width: 850px; margin: 40px auto; padding: 0 20px 48px; }
+    h1, h2 { line-height: 1.25; margin: 24px 0 10px; }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.25rem; color: var(--accent); }
+    p { margin: 0 0 12px; }
+    .meta { display: flex; gap: 12px; flex-wrap: wrap; font-size: .95rem; color: var(--muted); margin: 6px 0 24px; }
+    .meta div { padding: 6px 10px; background: var(--bgmuted); border-radius: 8px; }
+    code { background: #f6f8fa; padding: .08rem .35rem; border-radius: 6px; }
+    hr { border: 0; border-top: 1px solid #eee; margin: 24px 0; }
+    @media print {
+      main { margin: 0; max-width: 100%; padding: 0 12mm; }
+      a[href]:after { content: " (" attr(href) ")"; font-size: .9em; color: #444; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Simulacion de circuitos serie y paralelo</h1>
+      
+    </header>
+
+    <section id="introduccion">
+      <h2>Introducción</h2>
+      <p>
+        El análisis de circuitos eléctricos es esencial para comprender cómo se comportan la corriente y el voltaje en distintas configuraciones. Entre las más comunes se encuentran los circuitos en serie y en paralelo, que son la base de aplicaciones tanto en la vida cotidiana como en la ingeniería eléctrica. En esta práctica se utilizó una pila de 1.5&nbsp;V, resistencias y un protoboard para observar experimentalmente la distribución del voltaje en cada tipo de conexión y contrastar los resultados con la teoría.
+      </p>
+    </section>
+
+    <section id="objetivo">
+      <h2>Objetivo</h2>
+      <p>
+        Analizar la distribución del voltaje en circuitos conectados en serie y en paralelo, verificando experimentalmente las leyes fundamentales que rigen su comportamiento eléctrico.
+      </p>
+    </section>
+
+    <section id="marco-teorico">
+      <h2>Marco Teórico</h2>
+      <p>
+        La <strong>Ley de Ohm</strong> (<code>V = I · R</code>) establece la relación entre voltaje, corriente y resistencia, y es la base para el análisis de circuitos. En un circuito <strong>en serie</strong>, la corriente es la misma en todos los componentes y el voltaje total se reparte proporcionalmente entre las resistencias. En cambio, en un circuito <strong>en paralelo</strong>, el voltaje se mantiene constante en todas las ramas, pero la corriente se divide de acuerdo con la resistencia de cada trayecto. Además, la <strong>Ley de Kirchhoff de voltajes</strong> explica que en una malla cerrada la suma de todas las diferencias de potencial es igual al voltaje suministrado por la fuente.
+      </p>
+    </section>
+
+    <section id="desarrollo">
+      <h2>Desarrollo</h2>
+      <p>
+        En el primer montaje se trabajó con resistencias en <strong>paralelo</strong>. Al conectar cada una a la misma fuente de 1.5&nbsp;V, se pudo observar que todas las ramas mantenían el mismo voltaje de alimentación, sin importar la cantidad de resistencias añadidas. Esto se debe a que, en un circuito en paralelo, todos los elementos comparten los mismos nodos de conexión, por lo que la diferencia de potencial entre ellos es constante. Los medidores mostraron valores idénticos de voltaje en cada rama, confirmando que el voltaje en paralelo no se divide, sino que se mantiene igual en cada trayecto.
+      </p>
+      <p>
+        Por otro lado, la <strong>corriente eléctrica</strong> en el paralelo sí se reparte de acuerdo con la resistencia de cada rama. Según la Ley de Ohm, la corriente depende del voltaje y de la resistencia, por lo que si las resistencias son iguales, la corriente se distribuye de manera proporcional. El amperímetro indicó que el suministro total de corriente de la pila se dividía entre las ramas, lo cual valida la teoría de que en paralelo la corriente total es la suma de las corrientes parciales.
+      </p>
+      <p>
+        En el segundo montaje, las resistencias se conectaron en <strong>serie</strong>, una configuración en la que la corriente circula por un único camino atravesando cada componente uno tras otro. Los medidores mostraron que la corriente era la misma en toda la trayectoria, pero el voltaje se dividió entre las resistencias. Cada resistencia marcó aproximadamente <strong>732&nbsp;mV</strong>, y al sumar ambas caídas de tensión se obtuvo un valor cercano a los <strong>1.46&nbsp;V</strong>, que corresponde al voltaje total de la pila. Esto demuestra que en los circuitos en serie el voltaje total de la fuente se reparte entre los elementos según su valor resistivo.
+      </p>
+      <p>
+        Finalmente, este comportamiento se explica con la <strong>Ley de Kirchhoff de voltajes</strong>, la cual establece que en una malla cerrada la suma de las diferencias de potencial es igual al voltaje suministrado por la fuente. Por esta razón, en serie el voltaje se distribuye entre los componentes y en paralelo permanece igual en cada rama. En ambos casos, los resultados obtenidos en la práctica coinciden con la teoría, lo que confirma la validez de las leyes fundamentales de los circuitos eléctricos.
+      </p>
+
+       <h2>Ejercicio resuelto de la actividad</h2>
+
+       <iframe width="725" height="453" src="https://www.tinkercad.com/embed/kGc5sbZ74EE?editbtn=1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+    </section>
+
+    <section id="conclusion">
+      <h2>Conclusión</h2>
+      <p>
+        La práctica permitió comprobar de manera experimental los principios fundamentales de los circuitos eléctricos. Se verificó que en paralelo el voltaje se mantiene constante en todas las ramas, mientras que la corriente se divide según las resistencias; y que en serie la corriente permanece igual en todo el recorrido, pero el voltaje se reparte proporcionalmente entre los elementos. Estas observaciones concuerdan con la Ley de Ohm y las leyes de Kirchhoff, reafirmando los conceptos estudiados en la teoría.
+      </p>
+      <p>
+        Además, la experiencia adquirida refuerza la importancia de comprender estas configuraciones para el diseño y la aplicación en sistemas eléctricos reales. Desde las instalaciones domésticas, que emplean conexiones en paralelo para garantizar el mismo voltaje a cada dispositivo, hasta las conexiones en serie utilizadas en baterías para aumentar el voltaje total, estas bases resultan indispensables en el ámbito académico y profesional de la ingeniería eléctrica y electrónica.
+      </p>
+    </section>
+  </main>
+</body>
+</html
